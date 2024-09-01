@@ -1,0 +1,73 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+*.pkl
+
+# If you are using SQLite database files
+db.sqlite3
+*.sqlite3
+
+# Django migrations
+*/migrations/*
+
+# Pytest cache
+.pytest_cache/
+
+# Environment variables file
+.env
+
+# virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# MacOS specific
+.DS_Store
+
+# macOS Finder
+.fseventsd
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.TemporaryItems
+.apdisk
+
+# Custom Pycharm Settings
+.idea/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter 
+.ipynb_checkpoints/
+*.ipynb-meta
+*.out
+*.ipynb.out
+.jupyter/
+downloaded_files/
+

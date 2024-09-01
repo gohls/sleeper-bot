@@ -1,0 +1,9 @@
+Celery
+Django
+django-celery-beat
+django-celery-results
+redis
+jupyter
+selenium 
+certifi
+openai
