@@ -2,9 +2,11 @@ import os
 import json
 from datetime import datetime
 
+LOCAL_STORAGE_PATH="./local_storage/"
+
 class LocalStorage:
     def __init__(self, storage_file='local_storage.json'):
-        self.storage_file = storage_file
+        self.storage_file = LOCAL_STORAGE_PATH + storage_file
         self.data = self._load_storage()
 
     def _load_storage(self):
