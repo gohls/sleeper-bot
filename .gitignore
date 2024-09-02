@@ -71,9 +71,9 @@ dmypy.json
 .jupyter/
 downloaded_files/
 
-# Local Storage files
-local_storage/*
+# Local storage files
+*/local_storage/*
 
-# all scripts
+# All scripts
 *.sh
 
