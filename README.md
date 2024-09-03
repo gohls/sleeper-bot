@@ -1,11 +1,40 @@
-# sleeper-ff-perplexity
+# Sleeper Bot - Fantasy Football AI Bot
 
-bot to play fantasy football in sleeper app
+## Overview
 
-update
+This project is an automated bot that interacts with the Sleeper fantasy football app. It simulates playing against a "Computer" or "AI" by managing a fantasy football team with maximum efficiency, aiming to be a winning machine.
 
-Update completed. 2024-09-03 07:33:20
+## Features
 
-Update completed. 2024-09-03 07:34:50
+- Automates all processes of managing a fantasy football team in a Sleeper league
+- Interacts with the Sleeper app API to retrieve and update data
+- Utilizes Perplexity.ai for advanced decision-making and analysis
+- Built with Django framework for robust backend functionality
 
-Update completed. 2024-09-03 07:44:07
+## Key Functionalities
+
+- Automated draft strategy implementation
+- Weekly lineup optimization
+- Waiver wire and free agent acquisition
+- Trade proposal generation and evaluation
+- Player performance analysis and projections
+
+## Technology Stack
+
+- Django: Web framework for backend development
+- Sleeper API: For interacting with Sleeper fantasy football data
+- Perplexity.ai: Advanced AI for strategic decision-making
+- Python: Primary programming language
+
+## Setup and Installation
+
+TO-DO
+
+## Disclaimer
+
+This bot is designed for educational and entertainment purposes. Please use responsibly and in accordance with Sleeper's terms of service.
+
+Citations:
+[1] https://docs.sleeper.com
+[2] https://sleeper.com/fantasy-football
+[3] https://sleeper.com
