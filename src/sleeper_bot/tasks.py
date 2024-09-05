@@ -11,7 +11,11 @@ from django.forms import model_to_dict
 sleeper_automator = SleeperAutomationBot()
 
 @shared_task
-def run_draft_process():
+def run_post_game_tasks():
+    week_match_result = "get results"
+
+@shared_task
+def run_draft():
 
     draft_picks = get_draft_picks()
     last_pick_no = max(pick['pick_no'] for pick in draft_picks) if draft_picks else 0
