@@ -14,10 +14,11 @@
     <title>{% block title %}Example{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     {% block css %}{% endblock %}
   </head>
 
