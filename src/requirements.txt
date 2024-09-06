@@ -33,6 +33,7 @@ defusedxml==0.7.1
 distro==1.9.0
 Django==4.2.16
 django-bootstrap-v5==1.0.11
+django-bootstrap5==24.2
 django-celery-beat==2.6.0
 django-celery-results==2.5.1
 django-multiselectfield==0.1.13
