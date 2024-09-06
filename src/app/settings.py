@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "sleeper_bot",
+    "website"
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+print(BASE_DIR)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'website/staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'website/static'),
 ]
 
 WSGI_APPLICATION = "app.wsgi.application"

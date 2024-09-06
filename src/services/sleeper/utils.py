@@ -6,6 +6,7 @@ def get_drafted_player_ids(draft_picks):
     return [pick['player_id'] for pick in draft_picks]
 
 def position_roster_needs(drafted_positions):
+    
     requirements = {
         'WR': 6,
         'TE': 2,
