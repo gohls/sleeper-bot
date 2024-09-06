@@ -49,9 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_celery_beat",
     "django_celery_results",
-    "bootstrap5",
     "sleeper_bot",
     "website",
+    "bootstrap5",
 ]
 
 MIDDLEWARE = [
