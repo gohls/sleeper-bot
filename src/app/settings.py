@@ -15,7 +15,8 @@ from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR)
 
 EMAIL = os.getenv('EMAIL')
 PASSWORD = os.getenv('PASSWORD')
@@ -27,7 +28,7 @@ PASSWORD = os.getenv('PASSWORD')
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "True"
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 ALLOWED_HOSTS = [
     "127.0.0.1" , 
@@ -48,8 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_celery_beat",
     "django_celery_results",
+    "bootstrap5",
     "sleeper_bot",
-    "website"
+    "website",
 ]
 
 MIDDLEWARE = [
@@ -82,11 +84,10 @@ TEMPLATES = [
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'src', 'website', 'static'),
+    os.path.join(BASE_DIR, 'static'),  # Points to src/static/
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 WSGI_APPLICATION = "app.wsgi.application"
 

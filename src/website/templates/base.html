@@ -11,14 +11,14 @@
     <meta name="author" content="" />
     <link rel="icon" href="{% static 'favicon.ico' %}" />
 
-    <title>{% block title %}Example{% endblock %}</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <title>
+      {% block title %}League of Extraordinary Degenerates{% endblock %}
+    </title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}" />
+
     {% block css %}{% endblock %}
   </head>
 
