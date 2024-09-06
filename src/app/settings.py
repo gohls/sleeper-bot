@@ -30,12 +30,14 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
+
 ALLOWED_HOSTS = [
     "127.0.0.1" , 
     "localhost", 
     "leagueofextraordinarydegenerates.com", 
     "orca-app-uj8s4.ondigitalocean.app"
-    ]
+]
+
 CSRF_TRUSTED_ORIGINS = ['https://orca-app-uj8s4.ondigitalocean.app', 'https://leagueofextraordinarydegenerates.com']
 
 # Application definition
@@ -51,7 +53,6 @@ INSTALLED_APPS = [
     "django_celery_results",
     "sleeper_bot",
     "website",
-    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -84,10 +85,10 @@ TEMPLATES = [
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Points to src/static/
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 WSGI_APPLICATION = "app.wsgi.application"
 

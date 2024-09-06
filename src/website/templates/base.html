@@ -14,7 +14,11 @@
     <title>
       {% block title %}League of Extraordinary Degenerates{% endblock %}
     </title>
-    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <!-- Bootstrap core CSS -->
+    <link
+      href="{% static 'website/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'website/css/style.css' %}" />
@@ -47,6 +51,8 @@
     </div>
     <!-- /container -->
 
+    <!-- Your content goes here -->
+
     <!-- Bootstrap core JavaScript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -66,7 +72,8 @@
           "<script src=\"{% static 'js/jquery.min.js'%}\"><\/script>"
         );
     </script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'website/js/bootstrap.min.js' %}"></script>
+
     {% block js %}{% endblock %}
   </body>
 </html>
