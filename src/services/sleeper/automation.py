@@ -1,5 +1,5 @@
 import os
-from decouple import config
+from typing import Optional
 from seleniumbase import Driver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -9,14 +9,17 @@ import time
 from functools import wraps
 
 
-SLEEPER_BASE_URL = 'https://sleeper.com'
-SLEEPER_LOGIN_URL = SLEEPER_BASE_URL + '/login'
+SLEEPER_BASE_URL = 'https://sleeper.com/'
+SLEEPER_LOGIN_URL = SLEEPER_BASE_URL + 'login/'
 
 def login_required(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
-        self._is_logged_in()
-        return func(self, *args, **kwargs)
+        if not self.is_logged_in:
+            print("Need to log in")
+            return False
+        else:
+            return func(self, *args, **kwargs)
     return wrapper
 
 def handle_exceptions(func):
@@ -44,77 +47,88 @@ class SleeperAutomationBot:
         self.driver.implicitly_wait(wait) 
         self.is_logged_in = False
 
-    def _is_logged_in(self):
-        if not self.is_logged_in:
-            self.login()
+    @handle_exceptions
+    def close(self) -> bool:
+        self.driver.close()
 
-    def _get_current_url(self):
+    @handle_exceptions
+    def accept_cookies(self) -> bool:
+        accept_button = self.driver.find_element(By.ID, "onetrust-accept-btn-handler")
+        accept_button.click() 
+
+    @handle_exceptions
+    def get_current_url(self) -> str | bool:
         return self.driver.current_url
     
-    def _nav_to(self, nav_to):
+    @handle_exceptions
+    def nav_to(self, nav_to) -> bool:
         if nav_to is not self.get_current_url():
             self.driver.get(nav_to)
-    
-    def _accept_cookies(self):
-            try:
-                accept_button = self.driver.find_element(By.ID, "onetrust-accept-btn-handler")
-                accept_button.click() 
-            except NoSuchElementException:
-                pass
 
-    def _is_element_disabled(element):
-        class_attribute = element.get_attribute("class")
-        return "disable" in class_attribute
-
-    def login(self, email="", password="") -> None:
-        if self.is_logged_in:
-            return 
-        
+    @handle_exceptions
+    def login(self, email="", password="") -> bool:
         self.nav_to(SLEEPER_LOGIN_URL)
         time.sleep(5)
 
+        # Assuming we are redirected when we try to go to login page
         if "login" not in self.get_current_url():
-            # Assuming we are redirected when we are logged in
             self.is_logged_in = True
             return 
         
+        try:
+            self.accept_cookies()
+        except Exception as e:
+            print(f"Error accepting cookies: {str(e)}")
+        
+        time.sleep(1)
+
         email = email or os.getenv('EMAIL')
         password = password or os.getenv('PASSWORD')
+        
+       
+        # Focus on username input field
+        self.driver.find_element(By.TAG_NAME, "input").click()
+        time.sleep(2)
+
+        # Enter email, submit email, enter password, and submit password
         actions = ActionChains(self.driver)
+        actions \
+            .send_keys(email) \
+            .send_keys(Keys.ENTER) \
+            .pause(2) \
+            .send_keys(password) \
+            .pause(2) \
+            .send_keys(Keys.ENTER) \
+            .pause(2) \
+            .perform()
+        time.sleep(5)
 
-        try:
-            # Enter email, submit email, enter password, and submit password
-            actions \
-                .send_keys(email) \
-                .send_keys(Keys.ENTER) \
-                .pause(2) \
-                .send_keys(password) \
-                .pause(2) \
-                .send_keys(Keys.ENTER) \
-                .pause(2) \
-                .perform()
-            time.sleep(5)
-            # Should be redirected after login success
-            if "login" not in self.get_current_url():
-                self.is_logged_in = True
-        except Exception as e:
-            print("An error occurred: ", e)
-
-    def close(self):
-        self.driver.close()
+        # Should be redirected after login success
+        if SLEEPER_BASE_URL in self.get_current_url() and "login" not in self.get_current_url():
+            self.is_logged_in = True
 
     '''
     GENERAL OPERATIONS
     '''
     @login_required
     @handle_exceptions
-    def post_comment_to_league_chat(self, comment) -> bool:
-        self.driver.find_element(By.CLASS_NAME, "chat-input") \
-            .pause(2) \
-            .find_element(By.TAG_NAME, "textarea") \
-            .pause(2) \
+    def post_comment_to_league_chat(self, league_id=None, comment="") -> bool:
+        league_id = league_id or os.getenv('LEAGUE_ID')
+
+        self.nav_to(SLEEPER_BASE_URL + "leagues/" + str(league_id))
+        time.sleep(5)
+
+        # Focus on channel message text field
+        self.driver.find_element(By.CLASS_NAME, "chat-input").find_element(By.TAG_NAME, "textarea").click()
+        
+        actions = ActionChains(self.driver)
+        actions \
             .send_keys(comment) \
-            .send_keys(Keys.ENTER)
+            .pause(2) \
+            .send_keys(Keys.ENTER) \
+            .pause(2) \
+            .perform()
+        time.sleep(5)
         
     @login_required
     @handle_exceptions
@@ -142,7 +156,7 @@ class SleeperAutomationBot:
     '''
     @login_required
     @handle_exceptions
-    def draft_player(self, player):
+    def draft_player(self, player) -> bool:
         player_filtered = self.filter_availabe_player_in_draft(player)
         if player_filtered:
             self.driver.find_element(By.CLASS_NAME, "draft-button") \
@@ -151,7 +165,7 @@ class SleeperAutomationBot:
 
     @login_required
     @handle_exceptions
-    def filter_players_in_draftroom(self, player=""):
+    def filter_players_in_draftroom(self, player="") -> bool:
         self.driver.find_element(By.CLASS_NAME, "player-search") \
             .pause(2) \
             .find_element(By.TAG_NAME, "input") \
