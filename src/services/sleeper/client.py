@@ -12,6 +12,7 @@ from sleeper_bot.models import Player
 SLEEPER_API_BASE_URL = 'https://api.sleeper.app/v1'
 TIMESTAMP_CALL_KEY = 'get_nfl_players_timestamp'
 DRAFT_ID = os.getenv('DRAFT_ID') or ''
+LEAGUE_ID = os.getenv('LEAGUE_ID') or ''
 
 local_storage = LocalStorage('sleeper.json')
 
@@ -57,7 +58,7 @@ def get_players_trending(type_, lookback_hours, limit):
 def get_user_drafts(user_id, sport, season):
     return fetch_data("/user/{user_id}/drafts/{sport}/{season}", user_id=user_id, sport=sport, season=season)
 
-def get_league_drafts(league_id):
+def get_league_drafts(league_id=LEAGUE_ID):
     return fetch_data("/league/{league_id}/drafts", league_id=league_id)
 
 def get_draft():
@@ -72,13 +73,13 @@ def get_draft_traded_picks():
 def get_league_info(league_id):
     return fetch_data("/league/{league_id}", league_id=league_id)
 
-def get_league_rosters(league_id):
+def get_league_rosters(league_id=LEAGUE_ID):
     return fetch_data("/league/{league_id}/rosters", league_id=league_id)
 
-def get_league_users(league_id):
+def get_league_users(league_id=LEAGUE_ID):
     return fetch_data("/league/{league_id}/users", league_id=league_id)
 
-def get_league_matchups(league_id, week):
+def get_league_matchups(league_id=LEAGUE_ID, week=None):
     return fetch_data("/league/{league_id}/matchups/{week}", league_id=league_id, week=week)
 
 def get_league_transactions(league_id, round_):

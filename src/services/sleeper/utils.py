@@ -1,4 +1,11 @@
 
+def get_league_user_from_leagues_users_by_id(data, user_id):
+    return next((user for user in data if user['user_id'] == user_id), None)
+
+def get_league_user_from_leagues_users_by_username(data, username):
+    return next((user for user in data if user['username'] == username), None)
+
+## DRAFT 
 def positions_on_roster(draft_picks, user_id="1130174389980434432"):
     return [pick['metadata']['position'] for pick in draft_picks if pick['picked_by'] == user_id]
 

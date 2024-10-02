@@ -8,7 +8,16 @@ from openai import OpenAI
 PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
 client = OpenAI(api_key=PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai")
 
+'''
+    GENERAL OPERATIONS
+'''
+def ask_perplexity_for_trash_talk() -> str:
+    return "trash talk"
+    
 
+'''
+    DRAFT OPERATIONS
+'''
 def ask_perplexity_for_draft_advice(available_players: List[Dict], needed_positions: List[str]) -> str:
     """
     Ask Perplexity AI for advice on which player to draft.
