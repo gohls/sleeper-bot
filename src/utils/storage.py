@@ -2,16 +2,17 @@ import os
 import json
 from datetime import datetime
 
-LOCAL_STORAGE_PATH="./local_storage/"
+LOCAL_STORAGE_PATH = "./local_storage/"
+
 
 class LocalStorage:
-    def __init__(self, storage_file='local_storage.json'):
+    def __init__(self, storage_file="local_storage.json"):
         self.storage_file = LOCAL_STORAGE_PATH + storage_file
         self.data = self._load_storage()
 
     def _load_storage(self):
         if os.path.exists(self.storage_file):
-            with open(self.storage_file, 'r') as file:
+            with open(self.storage_file, "r") as file:
                 try:
                     return json.load(file)
                 except json.JSONDecodeError:
@@ -19,7 +20,7 @@ class LocalStorage:
         return {}
 
     def _save_storage(self):
-        with open(self.storage_file, 'w') as file:
+        with open(self.storage_file, "w") as file:
             json.dump(self.data, file, default=self._json_serial)
 
     def _json_serial(self, obj):

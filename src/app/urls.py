@@ -23,5 +23,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    re_path(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
+    re_path(r"^$", TemplateView.as_view(template_name="index.html"), name="home"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -3,59 +3,61 @@ from django.db import transaction
 from sleeper_bot.models import Player, PlayerMetadata, PlayerIDs
 from datetime import datetime
 
+
 def parse_date(date_string):
     if not date_string:
         return None
     try:
-        return datetime.strptime(date_string, '%Y-%m-%d').date()
+        return datetime.strptime(date_string, "%Y-%m-%d").date()
     except ValueError:
         return None
+
 
 def update_or_create_player(player_data):
     with transaction.atomic():
         player, created = Player.objects.update_or_create(
-            player_id=player_data['player_id'],
+            player_id=player_data["player_id"],
             defaults={
-                'first_name': player_data.get('first_name', ''),
-                'last_name': player_data.get('last_name', ''),
-                'full_name': player_data.get('full_name', ''),
-                'search_full_name': player_data.get('search_full_name', ''),
-                'search_first_name': player_data.get('search_first_name', ''),
-                'search_last_name': player_data.get('search_last_name', ''),
-                'team': player_data.get('team', ''),
-                'position': player_data.get('position', ''),
-                'fantasy_positions': player_data.get('fantasy_positions', []),
-                'years_exp': player_data.get('years_exp'),
-                'active': player_data.get('active', False),
-                'status': player_data.get('status', ''),
-                'number': player_data.get('number'),
-                'depth_chart_position': player_data.get('depth_chart_position', ''),
-                'depth_chart_order': player_data.get('depth_chart_order'),
-                'sport': player_data.get('sport', 'nfl'),
-                'search_rank': player_data.get('search_rank', 9999999),
-            }
+                "first_name": player_data.get("first_name", ""),
+                "last_name": player_data.get("last_name", ""),
+                "full_name": player_data.get("full_name", ""),
+                "search_full_name": player_data.get("search_full_name", ""),
+                "search_first_name": player_data.get("search_first_name", ""),
+                "search_last_name": player_data.get("search_last_name", ""),
+                "team": player_data.get("team", ""),
+                "position": player_data.get("position", ""),
+                "fantasy_positions": player_data.get("fantasy_positions", []),
+                "years_exp": player_data.get("years_exp"),
+                "active": player_data.get("active", False),
+                "status": player_data.get("status", ""),
+                "number": player_data.get("number"),
+                "depth_chart_position": player_data.get("depth_chart_position", ""),
+                "depth_chart_order": player_data.get("depth_chart_order"),
+                "sport": player_data.get("sport", "nfl"),
+                "search_rank": player_data.get("search_rank", 9999999),
+            },
         )
 
         PlayerMetadata.objects.update_or_create(
             player=player,
             defaults={
                 # 'rookie_year': player_data.get('metadata', {}).get('rookie_year', ''),
-                'birth_date': parse_date(player_data.get('birth_date')),
-                'age': player_data.get('age', 0),
-                'height': player_data.get('height', ''),
-                'weight': player_data.get('weight', ''),
-                'college': player_data.get('college', ''),
-                'high_school': player_data.get('high_school', ''),
-            }
+                "birth_date": parse_date(player_data.get("birth_date")),
+                "age": player_data.get("age", 0),
+                "height": player_data.get("height", ""),
+                "weight": player_data.get("weight", ""),
+                "college": player_data.get("college", ""),
+                "high_school": player_data.get("high_school", ""),
+            },
         )
 
         PlayerIDs.objects.update_or_create(
             player=player,
             defaults={
                 # 'channel_id': player_data.get('metadata', {}).get('channel_id', ''),
-                'fantasy_data_id': player_data.get('fantasy_data_id'),
-                'stats_id': player_data.get('stats_id', 0),
-            }
+                "fantasy_data_id": player_data.get("fantasy_data_id"),
+                "stats_id": player_data.get("stats_id", 0),
+            },
         )
 
         # if player_data.get('injury_body_part'):
@@ -73,7 +75,7 @@ def update_or_create_player(player_data):
 
 
 # Ex
-json_data = '''
+json_data = """
 {
   "6462": {
     "high_school": "Douglas County",
@@ -129,4 +131,4 @@ json_data = '''
     "number": 45
   }
 }
-'''
+"""

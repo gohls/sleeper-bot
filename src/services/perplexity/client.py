@@ -5,20 +5,26 @@ from typing import List, Dict
 from openai import OpenAI
 
 
-PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
+PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
 client = OpenAI(api_key=PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai")
 
-'''
+"""
     GENERAL OPERATIONS
-'''
+"""
+
+
 def ask_perplexity_for_trash_talk() -> str:
     return "trash talk"
-    
 
-'''
+
+"""
     DRAFT OPERATIONS
-'''
-def ask_perplexity_for_draft_advice(available_players: List[Dict], needed_positions: List[str]) -> str:
+"""
+
+
+def ask_perplexity_for_draft_advice(
+    available_players: List[Dict], needed_positions: List[str]
+) -> str:
     """
     Ask Perplexity AI for advice on which player to draft.
 
@@ -28,8 +34,12 @@ def ask_perplexity_for_draft_advice(available_players: List[Dict], needed_positi
     """
 
     # Prepare the prompt
-    player_info = "\n".join([f"{player['full_name']} ({', '.join(player['fantasy_positions'])}) - Rank: {player['search_rank']}, ID: {player['player_id']}" 
-                             for player in available_players])  # Limit to top 10 for brevity
+    player_info = "\n".join(
+        [
+            f"{player['full_name']} ({', '.join(player['fantasy_positions'])}) - Rank: {player['search_rank']}, ID: {player['player_id']}"
+            for player in available_players
+        ]
+    )  # Limit to top 10 for brevity
     prompt = f"""Given the following list of available players and the positions I still need for my fantasy football team, 
     who should I draft next? Consider the player's rank and my team needs. Only respond with the player ID
 
@@ -42,13 +52,11 @@ def ask_perplexity_for_draft_advice(available_players: List[Dict], needed_positi
 
     try:
         messages = [
-                    {
-                        "role": "user",
-                        "content": (
-                            prompt
-                        ),
-                    },
-                ]
+            {
+                "role": "user",
+                "content": (prompt),
+            },
+        ]
         response = client.chat.completions.create(
             model="llama-3-sonar-large-32k-online",
             messages=messages,

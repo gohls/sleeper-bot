@@ -32,13 +32,16 @@ DEBUG = os.getenv("DEBUG", "True") == "True"
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "127.0.0.1" , 
-    "localhost", 
-    "leagueofextraordinarydegenerates.com", 
-    "orca-app-uj8s4.ondigitalocean.app"
+    "127.0.0.1",
+    "localhost",
+    "leagueofextraordinarydegenerates.com",
+    "orca-app-uj8s4.ondigitalocean.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://orca-app-uj8s4.ondigitalocean.app', 'https://leagueofextraordinarydegenerates.com']
+CSRF_TRUSTED_ORIGINS = [
+    "https://orca-app-uj8s4.ondigitalocean.app",
+    "https://leagueofextraordinarydegenerates.com",
+]
 
 # Application definition
 
@@ -83,10 +86,10 @@ TEMPLATES = [
     },
 ]
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Points to src/static/
+    os.path.join(BASE_DIR, "static"),  # Points to src/static/
 ]
 
 WSGI_APPLICATION = "app.wsgi.application"
@@ -142,7 +145,7 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DJANGO_PROJECT='app'
+DJANGO_PROJECT = "app"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -150,8 +153,8 @@ CELERY_RESULT_BACKEND = "django-db"
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_REDIS_URL", default="redis://localhost:6379")
+CELERY_BROKER_URL = os.getenv(
+    "CELERY_BROKER_REDIS_URL", default="redis://localhost:6379"
+)
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
-
-
